@@ -1,9 +1,10 @@
 import { toko } from "@/lib/toko";
 import { formatRupiah } from "@/lib/format";
 
-export default function TombolWhatsApp({ produk }) {
-  const hargaTeks = formatRupiah(produk?.harga ?? 0);
-  const pesan = `Halo, saya ingin memesan ${produk?.nama || "produk"} seharga ${hargaTeks}.`;
+export default function TombolWhatsApp({ produk, jumlah = 1, varian = "", total }) {
+  const totalHarga = total !== undefined ? total : (produk?.harga ?? 0) * jumlah;
+  const teksVarian = varian ? ` (Varian: ${varian})` : "";
+  const pesan = `Halo, saya ingin memesan ${produk?.nama || "produk"}${teksVarian} sebanyak ${jumlah} pcs dengan total ${formatRupiah(totalHarga)}.`;
   const urlWhatsApp = `https://wa.me/${toko.nomorWhatsApp}?text=${encodeURIComponent(pesan)}`;
 
   return (

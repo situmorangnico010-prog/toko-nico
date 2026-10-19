@@ -74,7 +74,18 @@ Urutan yang disarankan: US-01, US-02, US-03, US-04, US-05, US-06, lalu fitur bon
 
 ## Tentang aplikasi ini
 
-- **Nama usaha:**
-- **Pembuat:**
-- **Link aplikasi:**
-- **Fitur bonus yang dikerjakan:**
+## Tentang aplikasi ini
+
+- Nama usaha: Toko Nico
+- Pembuat: Nicolas Situmorang
+- Link aplikasi: https://toko-nico-git-main-situmorangnico010-prog.vercel.app/
+- Fitur bonus yang dikerjakan:
+  - **Filter kategori dan pencarian (US-11):** pengunjung bisa mencari produk berdasarkan nama dan menyaring berdasarkan kategori. Penyaringan dilakukan di server lewat query Supabase, dan hasilnya bisa dibagikan lewat URL.
+  - **Pilihan jumlah pesanan (US-12):** pembeli memilih jumlah di halaman detail, dan pesan WhatsApp otomatis memuat nama produk, jumlah, dan total harga dalam rupiah.
+  - **Bisa di-install di HP / PWA (US-13):** aplikasi punya manifest dan service worker, sehingga bisa dipasang ke layar utama HP. Cache hanya untuk aset statis, jadi data produk dan halaman admin selalu terbaru.
+  - **Deskripsi produk dibuat AI (US-14):** admin menekan satu tombol di form tambah/ubah produk untuk membuat draf deskripsi dengan Claude API, lalu mengeditnya sebelum menyimpan.
+
+### Keamanan
+- Halaman `/admin` dilindungi `proxy.js`, dan setiap Server Action yang mengubah data (tambah, ubah, hapus produk, dan pembuatan deskripsi AI) memeriksa login admin di server.
+- Kunci rahasia (`SUPABASE_SECRET_KEY`, `ANTHROPIC_API_KEY`) hanya dipakai di kode server dan disimpan di environment variable, tidak masuk repository.
+- Service worker tidak meng-cache halaman admin, Server Action, maupun data dari Supabase.

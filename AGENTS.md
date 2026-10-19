@@ -50,3 +50,15 @@ Identitas toko (nama, nomor WhatsApp, alamat, jam buka) ada di `lib/toko.js`.
 5. Jangan menjalankan perintah Git apa pun (commit, push, dan lainnya dilakukan manual oleh pengguna).
 6. Hapus komponen `CatatanBelumAktif` dari halaman yang fiturnya sudah selesai.
 7. Setelah selesai, jelaskan singkat: file apa saja yang diubah dan cara mengetesnya.
+
+## Aturan umum untuk agent
+
+1. Proyek memakai Next.js 16 (App Router). Di versi ini `params`, `searchParams`, dan `cookies()` bersifat async (harus di-await). Kalau ragu soal API Next.js 16, cek dokumentasi resmi; jangan menebak dari versi lama.
+2. Jangan mengubah tampilan: jangan ubah className, CSS, atau struktur markup komponen yang sudah ada kecuali diminta. Elemen UI baru harus mengikuti DESIGN.md dan gaya komponen yang sudah ada.
+3. Jangan mengarang nama tabel atau kolom. Periksa dulu skema yang dipakai dari kode yang ada (lib/data-contoh.js, app/page.jsx, components/KartuProduk.jsx, docs/). Kalau kolom yang dibutuhkan belum ada, BERHENTI, jelaskan kolom apa yang kurang, dan tulis SQL-nya sebagai teks. Jangan menjalankan perubahan database sendiri.
+4. Rahasia (SUPABASE_SECRET_KEY, ANTHROPIC_API_KEY) hanya dipakai di kode server, tidak pernah diawali NEXT_PUBLIC_, tidak pernah di-import ke Client Component, dan tidak pernah dicetak ke log.
+5. Setiap Server Action yang mengubah data wajib memeriksa login di server dengan supabase.auth.getUser() (bukan getSession) dan menolak kalau belum login. Jangan hanya mengandalkan proxy.js.
+6. Perubahan seminimal mungkin: hanya sentuh file yang disebut di tugas atau yang benar-benar perlu. Jangan refactor, jangan ganti library, jangan hapus file lain.
+7. Semua teks yang tampil ke pengguna memakai Bahasa Indonesia.
+8. Jangan menambah dependency baru kecuali tugas menyebutnya atau tidak ada cara lain; kalau menambah, sebutkan alasannya.
+9. Setelah selesai: jalankan `npm run build`, perbaiki error yang muncul dari perubahanmu, lalu laporkan (a) file yang dibuat/diubah, (b) cara mengetesnya langkah demi langkah, (c) hal yang belum bisa dikerjakan atau kamu asumsikan. Jangan melakukan git commit.

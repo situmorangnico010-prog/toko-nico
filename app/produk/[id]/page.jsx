@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import TombolWhatsApp from "@/components/TombolWhatsApp";
+import PilihanPesanan from "@/components/PilihanPesanan";
 import { formatRupiah } from "@/lib/format";
+import { getFotoProduk } from "@/lib/foto-produk";
 import { createServerClient } from "@/lib/supabase/server";
 
 export const dynamic = "force-dynamic";
@@ -33,7 +34,7 @@ export default async function HalamanDetailProduk({ params }) {
   return (
     <article className="grid gap-8 py-8 md:grid-cols-2 md:py-12">
       <img
-        src={produk.foto_url}
+        src={getFotoProduk(produk)}
         alt={produk.nama}
         className="aspect-square w-full rounded-2xl border border-garis bg-permukaan object-cover"
       />
@@ -47,7 +48,7 @@ export default async function HalamanDetailProduk({ params }) {
           {formatRupiah(produk.harga)}
         </p>
         <p className="max-w-prose leading-relaxed text-teks-lembut">{produk.deskripsi}</p>
-        <TombolWhatsApp produk={produk} />
+        <PilihanPesanan produk={produk} />
       </div>
     </article>
   );
